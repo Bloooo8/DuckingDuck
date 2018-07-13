@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour,ICollectable {
+public class Coin : MonoBehaviour, ICollectable
+{
 
-	
-    public void Destroy()
+    RunInfo runInfo;
+
+
+    public void Start()
     {
+        runInfo = FindObjectOfType<RunInfo>();
+    }
+    public void Collect()
+    {
+        runInfo.InreaseCoinAmount();
+        Debug.Log("Zebrano monetę, ilość monet: " + runInfo.CoinAmount);
         GameObject.Destroy(gameObject);
+
+
     }
 }

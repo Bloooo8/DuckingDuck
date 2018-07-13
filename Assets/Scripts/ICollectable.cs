@@ -5,6 +5,6 @@ using System.Text;
 
 public interface ICollectable
 {
-    void Destroy();
+    void Collect();
 }
 

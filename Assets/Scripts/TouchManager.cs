@@ -8,7 +8,7 @@ public class TouchManager : MonoBehaviour
     Vector2 touchStartPoint;
     Vector2 touchEndPoint;
     Vector2 minSwipeLength;
-    Vector2 percentOfScreenSize = new Vector2(0.2f, 0.2f);
+    Vector2 percentOfScreenSize = new Vector2(0.15f, 0.15f);
     Vector2 swipeLength = new Vector2();
     public SWIPE SwipeDirection { get; private set; }
 

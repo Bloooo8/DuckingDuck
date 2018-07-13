@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour,ICollector{
+public class PlayerController : MonoBehaviour{
 
     new Rigidbody rigidbody;
     public bool OnGround { get; private set; }
@@ -13,14 +13,13 @@ public class PlayerController : MonoBehaviour,ICollector{
     Vector3 rightForce;
     Vector3 leftForce;
     TouchManager touchManager;
-    RunInfo runInfo;
+   
 
 
     public void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         touchManager = FindObjectOfType<TouchManager>();
-        runInfo = FindObjectOfType<RunInfo>();
        
     }
     public void Update()
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour,ICollector{
     {
         if (CheckIfCollectable(other))
         {
-            Collect(other.GetComponent<ICollectable>());
+            other.GetComponent<ICollectable>().Collect();
         }
     }
    
@@ -83,13 +82,7 @@ public class PlayerController : MonoBehaviour,ICollector{
         }
     }
 
-   public void Collect(ICollectable item)
-    {
-        runInfo.InreaseCoinAmount();
-        item.Destroy();
-        Debug.Log("Zebrano monetę, ilość monet: " + runInfo.CoinAmount);
-    }
-
+  
     bool CheckIfCollectable(Collider collider)
     {
         if (IsCollectable(collider.gameObject))
