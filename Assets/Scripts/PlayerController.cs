@@ -13,22 +13,20 @@ public class PlayerController : MonoBehaviour{
     Vector3 rightForce;
     Vector3 leftForce;
     TouchManager touchManager;
+    float tolerableHorizontalVelocity = 0.2f;
    
-
-
     public void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         touchManager = FindObjectOfType<TouchManager>();
-       
+        InitializeForces();
+
     }
     public void Update()
-    {
-        InitializeForces();
+    {       
         MoveForward();
         CheckIfOnGround();
         DoMove();
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,8 +39,8 @@ public class PlayerController : MonoBehaviour{
    
     void InitializeForces()
     {
-        jumpForce = new Vector3(0f, forceMultiplier, forceMultiplier / 10f);
-        downForce = new Vector3(0f, -forceMultiplier, forceMultiplier / 10f);
+        jumpForce = new Vector3(0f, forceMultiplier, 0f);
+        downForce = new Vector3(0f, -forceMultiplier, 0f);
         rightForce = Vector3.right * forceMultiplier;
         leftForce = Vector3.left * forceMultiplier;
     }
@@ -62,7 +60,7 @@ public class PlayerController : MonoBehaviour{
     void DoMove()
     {
         SWIPE swipe = touchManager.SwipeDirection;
-        if (swipe != SWIPE.NULL && OnGround)
+        if (swipe != SWIPE.NULL && OnGround && !IsMovingHorizontaly())
         {
             switch (swipe)
             {
@@ -102,4 +100,10 @@ public class PlayerController : MonoBehaviour{
         else
             return false;
     }
+
+    bool IsMovingHorizontaly()
+    {
+        return Mathf.Abs(rigidbody.GetPointVelocity(Vector3.zero).x) > tolerableHorizontalVelocity;
+    }
+
 }
