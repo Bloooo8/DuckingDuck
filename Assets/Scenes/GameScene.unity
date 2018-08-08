@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 349653428}
   - component: {fileID: 349653427}
   - component: {fileID: 349653426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,6 +767,7 @@ GameObject:
   - component: {fileID: 403458976}
   - component: {fileID: 403458975}
   - component: {fileID: 403458978}
+  - component: {fileID: 403458979}
   m_Layer: 0
   m_Name: PlayerHolder
   m_TagString: Untagged
@@ -825,7 +826,18 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
+--- !u!114 &403458979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 403458974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a124612363099394999ad5bce6695c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &409651576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2773,6 @@ GameObject:
   - component: {fileID: 1766468374}
   - component: {fileID: 1766468373}
   - component: {fileID: 1766468372}
-  - component: {fileID: 1766468371}
   m_Layer: 0
   m_Name: Obstacle (11)
   m_TagString: Untagged
@@ -2769,21 +2780,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!54 &1766468371
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1766468370}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!23 &1766468372
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3154,8 +3150,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2006341571}
-  - component: {fileID: 2006341570}
   - component: {fileID: 2006341572}
+  - component: {fileID: 2006341570}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3171,7 +3167,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2006341569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3089ed85cf24a9040bfbe1bd2db1c182, type: 3}
+  m_Script: {fileID: 11500000, guid: 24618e1e497c2af488afa0d572c5c2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2006341571

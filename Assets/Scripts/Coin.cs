@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour, ICollectable
 {
-
     RunInfo runInfo;
-
 
     public void Start()
     {
