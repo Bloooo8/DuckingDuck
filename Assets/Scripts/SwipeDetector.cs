@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public abstract class SwipeDetector : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public abstract class SwipeDetector : MonoBehaviour
     protected Vector2 percentOfScreenSize = new Vector2(0.15f, 0.15f);
     protected Vector2 swipeLength = new Vector2();
     public Vector3 SwipeDirection { get; protected set; }
+    public UnityAction OnSwipeDetected;
 
     protected void Start()
     {
@@ -36,6 +38,7 @@ public abstract class SwipeDetector : MonoBehaviour
         if (IsSwipeLongEnough())
         {
             CheckSwipeDirection();
+            OnSwipeDetected();
             Debug.Log("Swipe detected, " + " direction: " + SwipeDirection);
         }
         else

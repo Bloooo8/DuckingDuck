@@ -14,7 +14,8 @@ public class Coin : MonoBehaviour, ICollectable
     {
         runInfo.InreaseCoinAmount();
         Debug.Log("Zebrano monetę, ilość monet: " + runInfo.CoinAmount);
-        GameObject.Destroy(gameObject);
+        GetComponent<PoolMember>().Despawn();
+        GetComponent<PoolMember>().myPool.Spawn(transform.position + 2*Vector3.forward, Quaternion.identity);
 
 
     }

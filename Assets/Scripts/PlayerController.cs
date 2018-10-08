@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
 
-    new Rigidbody rigidbody;
+    Rigidbody rb;
     public bool OnGround { get; private set; }
     DesktopSwipeDetector touchManager;
     float tolerableHorizontalVelocity = 0.2f;
@@ -14,14 +14,16 @@ public class PlayerController : MonoBehaviour{
 
     public void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        touchManager = FindObjectOfType<DesktopSwipeDetector>();
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        InitializeFields();
+        touchManager.OnSwipeDetected += GetPlayerInput;
+        touchManager.OnSwipeDetected += MovePlayer;
     }
 
-    void Update()
+    void InitializeFields()
     {
-        GetPlayerInput();    
+        rb = GetComponent<Rigidbody>();
+        touchManager = FindObjectOfType<DesktopSwipeDetector>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     void GetPlayerInput()
@@ -29,18 +31,9 @@ public class PlayerController : MonoBehaviour{
         swipeDirection = touchManager.SwipeDirection;
     }
 
-    void FixedUpdate()
-    {
-        playerMovement.MoveForward();
-        if (swipeDirection != Vector3.zero)
-        {
-            MovePlayer();
-        }  
-    }
-
     void MovePlayer()
     {
-        if (CanMove())
+        if (swipeDirection != Vector3.zero && CanMove())
         {
             playerMovement.Move(swipeDirection);
         }
@@ -49,17 +42,15 @@ public class PlayerController : MonoBehaviour{
     {
         return !IsMovingHorizontaly();
     }
-    bool IsOnGround()
-    {
-        return true;
-    }
-    bool IsInAir()
-    {
-        return false;
-    }
+    
     bool IsMovingHorizontaly()
     {
-        return Mathf.Abs(rigidbody.GetPointVelocity(Vector3.zero).x) > tolerableHorizontalVelocity;
+        return Mathf.Abs(rb.GetPointVelocity(Vector3.zero).x) > tolerableHorizontalVelocity;
+    }
+
+    void FixedUpdate()
+    {
+        playerMovement.MoveForward();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -12,7 +12,7 @@ public class MobileSwipeDetector : SwipeDetector
             {
                 GetSwipeStartPosition();
             }
-            else
+            else if (touch.phase == TouchPhase.Ended)
             {
                 OnSwipeEnded();
             }
