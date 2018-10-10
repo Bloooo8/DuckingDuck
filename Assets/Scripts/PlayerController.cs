@@ -59,11 +59,23 @@ public class PlayerController : MonoBehaviour{
         {
             other.GetComponent<ICollectable>().Collect();
         }
+        else if (IsEnemy(other.gameObject))
+        {
+            other.GetComponent<IEnemy>().OnCollision();
+        }
     }
 
     bool IsCollectable(GameObject item)
     {
         if (item.GetComponent<ICollectable>() != null)
+            return true;
+        else
+            return false;
+    }
+
+    bool IsEnemy(GameObject item)
+    {
+        if (item.GetComponent<IEnemy>() != null)
             return true;
         else
             return false;

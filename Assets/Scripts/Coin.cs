@@ -2,21 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour, ICollectable
+public class Coin : MonoBehaviour, ICollectable,IItem
 {
-    RunInfo runInfo;
+    RunManager runManager;
+    PoolMember poolMember;
+    Vector3 nextCoinPosition;
+    LevelPlanner levelPlanner;
 
     public void Start()
     {
-        runInfo = FindObjectOfType<RunInfo>();
+        runManager = RunManager.Instance;
+        poolMember = GetComponent<PoolMember>();
+        levelPlanner = LevelPlanner.Instance;
     }
     public void Collect()
     {
-        runInfo.InreaseCoinAmount();
-        Debug.Log("Zebrano monetę, ilość monet: " + runInfo.CoinAmount);
-        GetComponent<PoolMember>().Despawn();
-        GetComponent<PoolMember>().myPool.Spawn(transform.position + 2*Vector3.forward, Quaternion.identity);
-
-
+        runManager.InreaseCoinAmount();
+        Debug.Log("Zebrano monetę, ilość monet: " + runManager.CoinAmount);
+        poolMember.Despawn();
+        nextCoinPosition = levelPlanner.GenerateNextCoinPosition();
+        poolMember.myPool.Spawn(nextCoinPosition, Quaternion.identity);
+    }
+  
+    public void OnBecameInvisible()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            poolMember.Despawn();
+            nextCoinPosition = levelPlanner.GenerateNextCoinPosition();
+            poolMember.myPool.Spawn(nextCoinPosition, Quaternion.identity);
+        }
+      
     }
 }
